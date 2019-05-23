@@ -70,3 +70,128 @@
         transform: translate3d(0, 0, 0);
     }
 }
+
+/*анимация для нижнего слайдера*/
+.slideOutLeft {
+    -webkit-animation-name: slideOutLeft;
+    animation-name: slideOutLeft;
+    -webkit-animation-duration: 2.5s;
+    animation-duration: 2.5s;
+    -webkit-animation-name: slideOutLeft;
+    -webkit-animation-duration: 2.5s;
+}
+
+@-webkit-keyframes slideOutLeft {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(-500px, 0, 0);
+        transform: translate3d(-500px, 0, 0);
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(-500px, 0, 0);
+        transform: translate3d(-500px, 0, 0);
+    }
+}
+
+
+
+@-webkit-keyframes slideOutLeftLong {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        -webkit-transform: translate3d(-1000px, 0, 0);
+        transform: translate3d(-1000px, 0, 0);
+    }
+}
+
+
+.slideInLeftLong {
+    -webkit-animation-name: slideInLeftLong;
+    animation-name: slideInLeftLong;
+    -webkit-animation-duration: 2.5s;
+    animation-duration: 2.5s;
+    -webkit-animation-name: slideInLeftLong;
+    -webkit-animation-duration: 2.5s;
+}
+
+@-webkit-keyframes slideInLeftLong {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(-1000px, 0, 0);
+        transform: translate3d(-1000px, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideInLeftLong {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(-1000px, 0, 0);
+        transform: translate3d(-1000px, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.slideInRightLong {
+    -webkit-animation-name: slideInRightLong;
+    animation-name: slideInRightLong;
+    -webkit-animation-duration: 2.5s;
+    animation-duration: 2.5s;
+    -webkit-animation-name: slideInRightLong;
+    -webkit-animation-duration: 2.5s;
+
+
+}
+
+@-webkit-keyframes slideInRightLong {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(1000px, 0, 0);
+        transform: translate3d(1000px, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slideInRightLong {
+    from {
+        opacity: 0;
+        -webkit-transform: translate3d(1000px, 0, 0);
+        transform: translate3d(1000px, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
