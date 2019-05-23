@@ -21,7 +21,7 @@ function accordion() {
     }
     }
     
-    accordionWrapper.addEventListener("click", function (event) {
+    accordionWrapper.addEventListener("click",  (event) => {
     let target = event.target;
     
     if (target && target.classList.contains("heading")) {

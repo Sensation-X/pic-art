@@ -145,7 +145,7 @@ function accordion() {
     }
     }
     
-    accordionWrapper.addEventListener("click", function (event) {
+    accordionWrapper.addEventListener("click",  (event) => {
     let target = event.target;
     
     if (target && target.classList.contains("heading")) {
@@ -211,7 +211,7 @@ function sizes() {
 
     function showSize(p, img, i) {
         img.setAttribute('src', "img/sizes-".concat(i + 1, "-1.png"));
-        p.forEach(function (e) {
+        p.forEach( (e) => {
             if (e.className != 'sizes-hit') {
                 e.style.display = 'none';
             }
@@ -220,25 +220,25 @@ function sizes() {
     
     function hideSize(p, img, i) {
         img.setAttribute('src', "img/sizes-".concat(i + 1, ".png"));
-        p.forEach(function (e) {
+        p.forEach( (e) => {
             e.style.display = '';
         });
     }
     
-    sizesBlock.forEach(function (e, i) {
+    sizesBlock.forEach( (e, i) => {
         let p = e.querySelectorAll('p'),
             img = e.querySelector('img');
-        e.addEventListener('mouseover', function () {
+        e.addEventListener('mouseover',  () => {
             showSize(p, img, i);
         });
-        e.addEventListener('mouseout', function () {
+        e.addEventListener('mouseout',  () => {
             hideSize(p, img, i);
         });
     });
-    sizesBlock.forEach(function (e, i) {
+    sizesBlock.forEach( (e, i) => {
         let p = e.querySelectorAll('p'),
             img = e.querySelector('img');
-        window.addEventListener('touchstart', function (elem) {
+        window.addEventListener('touchstart',  (elem) => {
             if (elem.target == p[0] || elem.target == p[1] || elem.target == p[2] || elem.target == p[3] || elem.target == img) {
                 showSize(p, img, i);
             } else {
@@ -378,17 +378,11 @@ module.exports = sliders;
 function styleBlock() {
     var hiddenStyleBlock = document.querySelectorAll('.styles-2'),
         btnStyleBlock = document.querySelector('.button-styles');
-    btnStyleBlock.addEventListener('click', function () {
+    btnStyleBlock.addEventListener('click', () => {
         btnStyleBlock.style.display = 'none';
-        hiddenStyleBlock.forEach(function (e) {
-            e.classList.remove("hidden-lg");
-            e.classList.remove("hidden-md");
-            e.classList.remove("hidden-sm");
-            e.classList.remove("hidden-xs");
-            e.classList.add("col-sm-3");
-            e.classList.add("col-sm-offset-0");
-            e.classList.add("col-xs-10");
-            e.classList.add("col-xs-offset-1");
+        hiddenStyleBlock.forEach( (e) => {
+            e.classList.remove("hidden-lg", "hidden-md", "hidden-sm", "hidden-xs");
+            e.classList.add("col-sm-3", "col-sm-offset-0", "col-xs-10", "col-xs-offset-1");
         });
     });
 }
