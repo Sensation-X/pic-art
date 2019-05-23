@@ -1,17 +1,15 @@
 {
-  "name": "picture_art",
+  "name": "lesson15",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config.basis.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^4.32.2"
-  },
-  "dependencies": {
+    "webpack": "^4.32.0",
     "webpack-cli": "^3.3.2"
   }
 }
