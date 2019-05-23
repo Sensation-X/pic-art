@@ -98,11 +98,35 @@ window.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
     let burger = __webpack_require__(/*! ./parts/burger.js */ "./src/js/parts/burger.js"),
-        sliders = __webpack_require__(/*! ./parts/sliders.js */ "./src/js/parts/sliders.js");
-    
+        sliders = __webpack_require__(/*! ./parts/sliders.js */ "./src/js/parts/sliders.js"),
+        sizes = __webpack_require__(/*! ./parts/sizes.js */ "./src/js/parts/sizes.js"),
+        styleBlock = __webpack_require__(/*! ./parts/style-block.js */ "./src/js/parts/style-block.js"),
+        accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js");
+
+
+
+
     burger();
     sliders();
+    accordion();
+    sizes();
+    styleBlock();
 });
+
+/***/ }),
+
+/***/ "./src/js/parts/accordion.js":
+/*!***********************************!*\
+  !*** ./src/js/parts/accordion.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function accordion() {
+
+}
+
+module.exports = accordion;
 
 /***/ }),
 
@@ -139,6 +163,21 @@ function burger() {
     });
 }
 module.exports = burger;
+
+/***/ }),
+
+/***/ "./src/js/parts/sizes.js":
+/*!*******************************!*\
+  !*** ./src/js/parts/sizes.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function sizes() {
+
+}
+
+module.exports = sizes;
 
 /***/ }),
 
@@ -255,6 +294,35 @@ next.addEventListener("click", function () {
 });
 
 module.exports = sliders;
+
+/***/ }),
+
+/***/ "./src/js/parts/style-block.js":
+/*!*************************************!*\
+  !*** ./src/js/parts/style-block.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function styleBlock() {
+    var hiddenStyleBlock = document.querySelectorAll('.styles-2'),
+        btnStyleBlock = document.querySelector('.button-styles');
+    btnStyleBlock.addEventListener('click', function () {
+        btnStyleBlock.style.display = 'none';
+        hiddenStyleBlock.forEach(function (e) {
+            e.classList.remove("hidden-lg");
+            e.classList.remove("hidden-md");
+            e.classList.remove("hidden-sm");
+            e.classList.remove("hidden-xs");
+            e.classList.add("col-sm-3");
+            e.classList.add("col-sm-offset-0");
+            e.classList.add("col-xs-10");
+            e.classList.add("col-xs-offset-1");
+        });
+    });
+}
+
+module.exports = styleBlock;
 
 /***/ })
 
