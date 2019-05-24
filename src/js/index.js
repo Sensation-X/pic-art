@@ -7,6 +7,8 @@ window.addEventListener('DOMContentLoaded', function () {
         styleBlock = require('./parts/style-block.js'),
         accordion = require('./parts/accordion.js'),
         feedbackSlider = require('./parts/feedback-slider.js'),
+        filtration = require('./parts/filtration.js'),
+        consultation = require('./parts/consultation.js'),
         sliders = require('./parts/sliders.js');
 
 
@@ -18,4 +20,6 @@ window.addEventListener('DOMContentLoaded', function () {
     styleBlock();
     sliders();
     feedbackSlider();
+    filtration();
+    consultation();
 });

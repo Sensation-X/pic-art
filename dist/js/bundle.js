@@ -102,6 +102,8 @@ window.addEventListener('DOMContentLoaded', function () {
         styleBlock = __webpack_require__(/*! ./parts/style-block.js */ "./src/js/parts/style-block.js"),
         accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js"),
         feedbackSlider = __webpack_require__(/*! ./parts/feedback-slider.js */ "./src/js/parts/feedback-slider.js"),
+        filtration = __webpack_require__(/*! ./parts/filtration.js */ "./src/js/parts/filtration.js"),
+        consultation = __webpack_require__(/*! ./parts/consultation.js */ "./src/js/parts/consultation.js"),
         sliders = __webpack_require__(/*! ./parts/sliders.js */ "./src/js/parts/sliders.js");
 
 
@@ -113,6 +115,8 @@ window.addEventListener('DOMContentLoaded', function () {
     styleBlock();
     sliders();
     feedbackSlider();
+    filtration();
+    consultation();
 });
 
 /***/ }),
@@ -201,6 +205,20 @@ module.exports = burger;
 
 /***/ }),
 
+/***/ "./src/js/parts/consultation.js":
+/*!**************************************!*\
+  !*** ./src/js/parts/consultation.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function consultation() {
+
+}
+module.exports = consultation;
+
+/***/ }),
+
 /***/ "./src/js/parts/feedback-slider.js":
 /*!*****************************************!*\
   !*** ./src/js/parts/feedback-slider.js ***!
@@ -281,6 +299,48 @@ next.addEventListener("click", () => {
 });
 }
 module.exports = feedbackSlider;
+
+/***/ }),
+
+/***/ "./src/js/parts/filtration.js":
+/*!************************************!*\
+  !*** ./src/js/parts/filtration.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function filtration() {
+    let portfolioWrapper = document.querySelector('.portfolio-wrapper'),
+        portfolioBlock = portfolioWrapper.querySelectorAll('.portfolio-block'),
+        portfolioMenu = document.querySelector('.portfolio-menu'),
+        portfolioMenuItem = portfolioMenu.querySelectorAll('li'),
+        portfolioNo = document.querySelector('.portfolio-no');
+    portfolioMenuItem.forEach((e) => {
+        e.addEventListener('click', () => {
+            portfolioMenuItem.forEach((e) => {
+                e.classList.remove('active');
+            });
+            let classN = e.className,
+                log = 0;
+            e.classList.add('active');
+            portfolioBlock.forEach((elem) => {
+                if (!elem.classList.contains(classN)) {
+                    elem.style.display = 'none';
+                } else {
+                    log = 1;
+                    elem.style.display = '';
+                }
+            });
+            if (log == 0) {
+                portfolioNo.style.display = 'block';
+            } else {
+                portfolioNo.style.display = '';
+            }
+        });
+    });
+}
+
+module.exports = filtration;
 
 /***/ }),
 
