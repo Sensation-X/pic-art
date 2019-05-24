@@ -98,19 +98,21 @@ window.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
     let burger = __webpack_require__(/*! ./parts/burger.js */ "./src/js/parts/burger.js"),
-        sliders = __webpack_require__(/*! ./parts/sliders.js */ "./src/js/parts/sliders.js"),
         sizes = __webpack_require__(/*! ./parts/sizes.js */ "./src/js/parts/sizes.js"),
         styleBlock = __webpack_require__(/*! ./parts/style-block.js */ "./src/js/parts/style-block.js"),
-        accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js");
+        accordion = __webpack_require__(/*! ./parts/accordion.js */ "./src/js/parts/accordion.js"),
+        feedbackSlider = __webpack_require__(/*! ./parts/feedback-slider.js */ "./src/js/parts/feedback-slider.js"),
+        sliders = __webpack_require__(/*! ./parts/sliders.js */ "./src/js/parts/sliders.js");
 
 
 
 
     burger();
-    sliders();
     accordion();
     sizes();
     styleBlock();
+    sliders();
+    feedbackSlider();
 });
 
 /***/ }),
@@ -199,6 +201,89 @@ module.exports = burger;
 
 /***/ }),
 
+/***/ "./src/js/parts/feedback-slider.js":
+/*!*****************************************!*\
+  !*** ./src/js/parts/feedback-slider.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function feedbackSlider() {
+let secondSlider = document.querySelectorAll(".feedback-slider-item"),
+    secondSliderTurn = 1,
+    prev = document.querySelector(".main-prev-btn"), 
+    next = document.querySelector(".main-next-btn"); 
+
+showSecondSlides();
+let timerClear; // таймер сброса анимации
+
+function timer() {
+    // таймер для анимации налево
+    timerClear = setInterval(() => {
+        secondSlider[secondSliderTurn - 1].classList.add("slideInRight");
+        secondSlider[secondSliderTurn - 1].classList.remove("slideInRight");
+        console.log("789");
+    }, 5000);
+}
+
+let timerSwap; // таймер смены изображений
+
+function timerFunc() {
+    timerSwap = setInterval(plusSecondSlides, 6000);
+}
+
+timerFunc();
+
+function plusSecondSlides() {
+    if (secondSliderTurn == secondSlider.length) {
+        secondSliderTurn = 1;
+    } else {
+        secondSliderTurn += 1;
+    }
+
+    showSecondSlides();
+}
+
+function showSecondSlides(n) {
+    if (n > secondSlider.length) {
+        secondSliderTurn = 1; 
+    }
+
+    if (n < 1) {
+        secondSliderTurn = secondSlider.length;
+    }
+
+    secondSlider.forEach((item) => {
+        item.style.display = "none";
+    });
+    secondSlider[secondSliderTurn - 1].style.display = "block";
+    secondSlider[secondSliderTurn - 1].classList.add("slideInRight"); 
+    
+} 
+
+function viewSlides(n) {
+    showSecondSlides(secondSliderTurn += n);
+}
+
+prev.addEventListener("click", () => {
+    viewSlides(-1); //слайд назад
+
+    clearInterval(timerSwap);
+    clearInterval(timer);
+    timerFunc();
+});
+next.addEventListener("click", () => {
+    viewSlides(+1); //слайд вперед
+
+    clearInterval(timerSwap);
+    clearInterval(timer);
+    timerFunc();
+});
+}
+module.exports = feedbackSlider;
+
+/***/ }),
+
 /***/ "./src/js/parts/sizes.js":
 /*!*******************************!*\
   !*** ./src/js/parts/sizes.js ***!
@@ -260,11 +345,10 @@ module.exports = sizes;
 /***/ (function(module, exports) {
 
 function sliders() {
-    //Главный слайдер
     let slideTurn = 1,
         slides = document.querySelectorAll(".main-slider-item");
     showSlides();
-    setInterval(plusSlides, 6000);
+    setInterval(plusSlides, 4000);
 
     function plusSlides() {
         if (slideTurn == slides.length) {
@@ -272,97 +356,25 @@ function sliders() {
         } else {
             slideTurn += 1;
         }
-
         showSlides();
     }
 
     function showSlides(n) {
         slides[slideTurn - 1].classList.remove('slideOutDown');
-        slides.forEach(function (item) {
+        slides.forEach((item) => {
             item.style.display = "none";
         });
         slides[slideTurn - 1].style.display = "block";
         slides[slideTurn - 1].classList.add('slideInDown');
-        setTimeout(function () {
+        setTimeout(() => {
             slides[slideTurn - 1].classList.remove('slideInDown');
         }, 3000);
-        setTimeout(function () {
+        setTimeout(() => {
             slides[slideTurn - 1].classList.add('slideOutDown');
         }, 5000);
     }
     
 }
-// Нижний слайдер
-let secondSlider = document.querySelectorAll(".feedback-slider-item"),
-    secondSliderTurn = 1,
-    prev = document.querySelector(".main-prev-btn"), 
-    next = document.querySelector(".main-next-btn"); 
-
-showSecondSlides();
-let timerID; // таймер сброса анимации
-
-function timer() {
-    // таймер для анимации налево
-    timerID = setInterval(function () {
-        secondSlider[secondSliderTurn - 1].classList.add("slideOutLeft");
-        secondSlider[secondSliderTurn - 1].classList.remove("slideInRightLong");
-        console.log("789");
-    }, 5000);
-}
-
-let timerIDFirst; // таймер смены изображений
-
-function timerFirst() {
-    timerIDFirst = setInterval(plusSecondSlides, 6000);
-}
-
-timerFirst();
-
-function plusSecondSlides() {
-    if (secondSliderTurn == secondSlider.length) {
-        secondSliderTurn = 1;
-    } else {
-        secondSliderTurn += 1;
-    }
-
-    showSecondSlides();
-}
-
-function showSecondSlides(n) {
-    if (n > secondSlider.length) {
-        secondSliderTurn = 1; 
-    }
-
-    if (n < 1) {
-        secondSliderTurn = secondSlider.length;
-    }
-
-    secondSlider.forEach(function (item) {
-        item.style.display = "none";
-    });
-    secondSlider[secondSliderTurn - 1].style.display = "block";
-    secondSlider[secondSliderTurn - 1].classList.add("slideInRightLong"); 
-    
-} 
-
-function viewSlides(n) {
-    showSecondSlides(secondSliderTurn += n);
-}
-
-prev.addEventListener("click", function () {
-    viewSlides(-1); //слайд назад
-
-    clearInterval(timerIDFirst);
-    clearInterval(timer);
-    timerFirst();
-});
-next.addEventListener("click", function () {
-    viewSlides(+1); //слайд вперед
-
-    clearInterval(timerIDFirst);
-    clearInterval(timer);
-    timerFirst();
-});
 
 module.exports = sliders;
 
