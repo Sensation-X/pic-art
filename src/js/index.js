@@ -11,6 +11,7 @@ window.addEventListener('DOMContentLoaded', function () {
         consultation = require('./parts/consultation.js'),
         popups = require('./parts/popups.js'),
         gift = require('./parts/fixed-gift.js'),
+        calculator = require('./parts/calculator.js'),
         sliders = require('./parts/sliders.js');
 
 
@@ -26,4 +27,5 @@ window.addEventListener('DOMContentLoaded', function () {
     consultation();
     popups();
     gift();
+    calculator();
 });

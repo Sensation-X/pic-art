@@ -106,6 +106,7 @@ window.addEventListener('DOMContentLoaded', function () {
         consultation = __webpack_require__(/*! ./parts/consultation.js */ "./src/js/parts/consultation.js"),
         popups = __webpack_require__(/*! ./parts/popups.js */ "./src/js/parts/popups.js"),
         gift = __webpack_require__(/*! ./parts/fixed-gift.js */ "./src/js/parts/fixed-gift.js"),
+        calculator = __webpack_require__(/*! ./parts/calculator.js */ "./src/js/parts/calculator.js"),
         sliders = __webpack_require__(/*! ./parts/sliders.js */ "./src/js/parts/sliders.js");
 
 
@@ -121,6 +122,7 @@ window.addEventListener('DOMContentLoaded', function () {
     consultation();
     popups();
     gift();
+    calculator();
 });
 
 /***/ }),
@@ -206,6 +208,68 @@ function burger() {
     });
 }
 module.exports = burger;
+
+/***/ }),
+
+/***/ "./src/js/parts/calculator.js":
+/*!************************************!*\
+  !*** ./src/js/parts/calculator.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function calsulator() {
+    let size = document.querySelector('#size'),
+        material = document.querySelector('#material'),
+        options = document.querySelector('#options'),
+        promocode = document.querySelector('.promocode'),
+        priceInput = document.querySelector('.calc-price');
+    let sizePrice = {
+        1: 500, 2: 1000, 3: 1500, 4: 2000
+    },
+        materialPrice = {
+            1: 500, 2: 1000, 3: 1500
+        },
+        optionsPrice = {
+            1: 500, 2: 1000, 3: 1500
+        };
+
+    function priceChange() {
+        if (size.options.selectedIndex > 0 && material.options.selectedIndex > 0) {
+            let price = sizePrice[size.options.selectedIndex] + materialPrice[material.options.selectedIndex];
+
+            if (options.options.selectedIndex > 0) {
+                price = price + optionsPrice[options.options.selectedIndex];
+            }
+
+            if (promocode.value == 'IWANTPOPART') {
+                price = price * 0.7;
+            }
+
+            priceInput.textContent = price;
+        } else {
+            priceInput.textContent = 'Для расчета нужно выбрать размер картины и материал картины';
+        }
+    }
+
+    size.addEventListener('change', () => {
+        priceChange();
+    });
+    material.addEventListener('change', () => {
+        priceChange();
+    });
+    options.addEventListener('change', () => {
+        priceChange();
+    });
+    promocode.addEventListener('input', () => {
+        priceChange();
+    });
+}
+
+module.exports = calsulator;
+
+
+
 
 /***/ }),
 
