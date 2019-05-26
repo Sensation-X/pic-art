@@ -6,6 +6,8 @@ function consultation() {
     
     btnConsultation.forEach((item) => {
     item.addEventListener('click', () => {
+        popupConsultation.classList.add("show");
+        popupConsultation.classList.add("smooth");
         popupConsultation.style.display = 'block';
         document.body.style.overflow = 'hidden';
     });
@@ -13,6 +15,8 @@ function consultation() {
     
     popupConsultation.addEventListener('click', (e) => {
     if (e.target.classList.contains('popup-close') || e.target.classList.contains('popup-consultation')) {
+        popupConsultation.classList.remove("show");
+        popupConsultation.classList.remove("smooth");
         document.body.style.overflow = '';
         popupConsultation.style.display = 'none';
         popupConsultation.querySelector('form').firstElementChild.style.display = 'block';

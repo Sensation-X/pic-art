@@ -9,6 +9,8 @@ window.addEventListener('DOMContentLoaded', function () {
         feedbackSlider = require('./parts/feedback-slider.js'),
         filtration = require('./parts/filtration.js'),
         consultation = require('./parts/consultation.js'),
+        popups = require('./parts/popups.js'),
+        gift = require('./parts/fixed-gift.js'),
         sliders = require('./parts/sliders.js');
 
 
@@ -22,4 +24,6 @@ window.addEventListener('DOMContentLoaded', function () {
     feedbackSlider();
     filtration();
     consultation();
+    popups();
+    gift();
 });

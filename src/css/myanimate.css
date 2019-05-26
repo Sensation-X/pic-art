@@ -1,12 +1,12 @@
 
 /*АНИМАЦИЯ ОСНОВНАЯ*/
-.fadeIn {
+.smooth {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
-    -webkit-animation-duration: 2.5s;
-    animation-duration: 2.5s;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
     -webkit-animation-name: fadeIn;
-    -webkit-animation-duration: 2.5s;
+    -webkit-animation-duration: 2s;
 }
 
 @-webkit-keyframes fadeIn {
@@ -28,6 +28,7 @@
         opacity: 1;
     }
 }
+
 
 /* /ОСНОВНОЙ СЛАЙДЕР*/
 

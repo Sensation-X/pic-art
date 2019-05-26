@@ -104,6 +104,8 @@ window.addEventListener('DOMContentLoaded', function () {
         feedbackSlider = __webpack_require__(/*! ./parts/feedback-slider.js */ "./src/js/parts/feedback-slider.js"),
         filtration = __webpack_require__(/*! ./parts/filtration.js */ "./src/js/parts/filtration.js"),
         consultation = __webpack_require__(/*! ./parts/consultation.js */ "./src/js/parts/consultation.js"),
+        popups = __webpack_require__(/*! ./parts/popups.js */ "./src/js/parts/popups.js"),
+        gift = __webpack_require__(/*! ./parts/fixed-gift.js */ "./src/js/parts/fixed-gift.js"),
         sliders = __webpack_require__(/*! ./parts/sliders.js */ "./src/js/parts/sliders.js");
 
 
@@ -117,6 +119,8 @@ window.addEventListener('DOMContentLoaded', function () {
     feedbackSlider();
     filtration();
     consultation();
+    popups();
+    gift();
 });
 
 /***/ }),
@@ -220,6 +224,8 @@ function consultation() {
     
     btnConsultation.forEach((item) => {
     item.addEventListener('click', () => {
+        popupConsultation.classList.add("show");
+        popupConsultation.classList.add("smooth");
         popupConsultation.style.display = 'block';
         document.body.style.overflow = 'hidden';
     });
@@ -227,6 +233,8 @@ function consultation() {
     
     popupConsultation.addEventListener('click', (e) => {
     if (e.target.classList.contains('popup-close') || e.target.classList.contains('popup-consultation')) {
+        popupConsultation.classList.remove("show");
+        popupConsultation.classList.remove("smooth");
         document.body.style.overflow = '';
         popupConsultation.style.display = 'none';
         popupConsultation.querySelector('form').firstElementChild.style.display = 'block';
@@ -378,6 +386,102 @@ function filtration() {
 }
 
 module.exports = filtration;
+
+/***/ }),
+
+/***/ "./src/js/parts/fixed-gift.js":
+/*!************************************!*\
+  !*** ./src/js/parts/fixed-gift.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function gift() {
+    let fixGift = document.querySelector('.fixed-gift'),
+        popupGift = document.querySelector('.popup-gift'),
+        btnClose = popupGift.querySelector('.popup-close');
+    let buttons = document.querySelectorAll('button');
+    let logFullScroll = 0;
+    buttons.forEach( (e) => {
+        e.addEventListener('click', () => {
+            logFullScroll = 1;
+        });
+    });
+
+    function showGift() {
+        fixGift.remove();
+        popupGift.classList.add("show");
+        popupGift.classList.add("smooth");
+        popupGift.style.display = 'block';
+        document.querySelector('body').style.overflow = 'hidden';
+        logFullScroll = 1;
+    }
+
+    function hideGift() {
+        popupGift.classList.remove("show");
+        popupGift.classList.remove("smooth");
+        popupGift.style.display = '';
+        document.querySelector('body').style.overflow = '';
+    }
+
+    fixGift.addEventListener('click', () => {
+        showGift();
+    });
+    popupGift.addEventListener('click', (e) => {
+        if (e.currentTarget == e.target) {
+            hideGift();
+        }
+    });
+    btnClose.addEventListener('click', () => {
+        hideGift();
+    });
+    window.addEventListener('scroll', () => {
+        if (logFullScroll == 0 && window.scrollY >= document.documentElement.scrollHeight - document.documentElement.clientHeight) {
+            showGift();
+        }
+    });
+}
+
+module.exports = gift;
+
+/***/ }),
+
+/***/ "./src/js/parts/popups.js":
+/*!********************************!*\
+  !*** ./src/js/parts/popups.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function popup() {
+    let popupBtn = document.getElementsByTagName("body")[0],
+        popupDesign = document.querySelector(".popup-design");
+
+    popupBtn.addEventListener("click", (event) => {
+        let target = event.target;
+
+        if (target && target.classList.contains("show")) {
+            target.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        if (target && target.classList.contains("button-design")) {
+            popupDesign.classList.add("show");
+            popupDesign.classList.add("smooth");
+        } 
+    });
+
+    let popupClose = document.querySelectorAll(".popup-close");
+    popupClose.forEach( (item) => {
+        item.addEventListener("click",  () => {
+            popupDesign.classList.remove("show");
+            popupDesign.classList.remove("smooth");
+            document.body.style.overflow = "";
+        });
+    });
+}
+
+module.exports = popup;
 
 /***/ }),
 
