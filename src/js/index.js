@@ -12,6 +12,8 @@ window.addEventListener('DOMContentLoaded', function () {
         popups = require('./parts/popups.js'),
         gift = require('./parts/fixed-gift.js'),
         calculator = require('./parts/calculator.js'),
+        mask = require('./parts/mask.js'),
+        form = require('./parts/form.js'),
         sliders = require('./parts/sliders.js');
 
 
@@ -28,4 +30,6 @@ window.addEventListener('DOMContentLoaded', function () {
     popups();
     gift();
     calculator();
+    mask();
+    form();
 });

@@ -1,73 +1,46 @@
-function feedbackSlider() {
-let secondSlider = document.querySelectorAll(".feedback-slider-item"),
-    secondSliderTurn = 1,
-    prev = document.querySelector(".main-prev-btn"), 
-    next = document.querySelector(".main-next-btn"); 
-
-showSecondSlides();
-let timerClear; // таймер сброса анимации
-
-function timer() {
-    // таймер для анимации налево
-    timerClear = setInterval(() => {
-        secondSlider[secondSliderTurn - 1].classList.add("slideInRight");
-        secondSlider[secondSliderTurn - 1].classList.remove("slideInRight");
-        console.log("789");
-    }, 5000);
-}
-
-let timerSwap; // таймер смены изображений
-
-function timerFunc() {
-    timerSwap = setInterval(plusSecondSlides, 6000);
-}
-
-timerFunc();
-
-function plusSecondSlides() {
-    if (secondSliderTurn == secondSlider.length) {
-        secondSliderTurn = 1;
-    } else {
-        secondSliderTurn += 1;
-    }
-
-    showSecondSlides();
-}
-
-function showSecondSlides(n) {
-    if (n > secondSlider.length) {
-        secondSliderTurn = 1; 
-    }
-
-    if (n < 1) {
-        secondSliderTurn = secondSlider.length;
-    }
-
-    secondSlider.forEach((item) => {
-        item.style.display = "none";
+let feedbackSlider = function feedbackSlider() {
+    let SecondSliderTurn = 1,
+        SecondSlider = document.querySelectorAll('.feedback-slider-item'),
+        prev = document.querySelector('.main-prev-btn'),
+        next = document.querySelector('.main-next-btn');
+    SecondSlider.forEach(function (item) {
+        item.classList.add('animated');
     });
-    secondSlider[secondSliderTurn - 1].style.display = "block";
-    secondSlider[secondSliderTurn - 1].classList.add("slideInRight"); 
-    
-} 
 
-function viewSlides(n) {
-    showSecondSlides(secondSliderTurn += n);
-}
+    let showSecondSlider = function showSecondSlider(n) {
+        if (n > SecondSlider.length) {
+            SecondSliderTurn = 1;
+        }
 
-prev.addEventListener("click", () => {
-    viewSlides(-1); //слайд назад
+        if (n < 1) {
+            SecondSliderTurn = SecondSlider.length;
+        }
 
-    clearInterval(timerSwap);
-    clearInterval(timer);
-    timerFunc();
-});
-next.addEventListener("click", () => {
-    viewSlides(+1); //слайд вперед
+        SecondSlider.forEach(function (item) {
+            return item.style.display = 'none';
+        });
+        SecondSlider[SecondSliderTurn - 1].style.display = 'block';
+        SecondSlider.forEach(function (item) {
+            item.classList.remove('slideInLeft');
+            item.classList.add('slideInRight');
+        });
+    };
 
-    clearInterval(timerSwap);
-    clearInterval(timer);
-    timerFunc();
-});
-}
+    showSecondSlider(SecondSliderTurn);
+
+    let plusSecondSlider = function plusSecondSlider(n) {
+        showSecondSlider(SecondSliderTurn += n);
+    };
+
+    prev.addEventListener('click', function () {
+        plusSecondSlider(-1);
+        SecondSlider[SecondSliderTurn - 1].classList.remove('slideInRight');
+        SecondSlider[SecondSliderTurn - 1].classList.add('slideInLeft');
+    });
+    next.addEventListener('click', function () {
+        plusSecondSlider(1);
+    });
+    setInterval(plusSecondSlider, 6000, 1);
+};
+
 module.exports = feedbackSlider;

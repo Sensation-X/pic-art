@@ -107,6 +107,8 @@ window.addEventListener('DOMContentLoaded', function () {
         popups = __webpack_require__(/*! ./parts/popups.js */ "./src/js/parts/popups.js"),
         gift = __webpack_require__(/*! ./parts/fixed-gift.js */ "./src/js/parts/fixed-gift.js"),
         calculator = __webpack_require__(/*! ./parts/calculator.js */ "./src/js/parts/calculator.js"),
+        mask = __webpack_require__(/*! ./parts/mask.js */ "./src/js/parts/mask.js"),
+        form = __webpack_require__(/*! ./parts/form.js */ "./src/js/parts/form.js"),
         sliders = __webpack_require__(/*! ./parts/sliders.js */ "./src/js/parts/sliders.js");
 
 
@@ -123,6 +125,8 @@ window.addEventListener('DOMContentLoaded', function () {
     popups();
     gift();
     calculator();
+    mask();
+    form();
 });
 
 /***/ }),
@@ -335,78 +339,51 @@ module.exports = consultation;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function feedbackSlider() {
-let secondSlider = document.querySelectorAll(".feedback-slider-item"),
-    secondSliderTurn = 1,
-    prev = document.querySelector(".main-prev-btn"), 
-    next = document.querySelector(".main-next-btn"); 
-
-showSecondSlides();
-let timerClear; // таймер сброса анимации
-
-function timer() {
-    // таймер для анимации налево
-    timerClear = setInterval(() => {
-        secondSlider[secondSliderTurn - 1].classList.add("slideInRight");
-        secondSlider[secondSliderTurn - 1].classList.remove("slideInRight");
-        console.log("789");
-    }, 5000);
-}
-
-let timerSwap; // таймер смены изображений
-
-function timerFunc() {
-    timerSwap = setInterval(plusSecondSlides, 6000);
-}
-
-timerFunc();
-
-function plusSecondSlides() {
-    if (secondSliderTurn == secondSlider.length) {
-        secondSliderTurn = 1;
-    } else {
-        secondSliderTurn += 1;
-    }
-
-    showSecondSlides();
-}
-
-function showSecondSlides(n) {
-    if (n > secondSlider.length) {
-        secondSliderTurn = 1; 
-    }
-
-    if (n < 1) {
-        secondSliderTurn = secondSlider.length;
-    }
-
-    secondSlider.forEach((item) => {
-        item.style.display = "none";
+let feedbackSlider = function feedbackSlider() {
+    let SecondSliderTurn = 1,
+        SecondSlider = document.querySelectorAll('.feedback-slider-item'),
+        prev = document.querySelector('.main-prev-btn'),
+        next = document.querySelector('.main-next-btn');
+    SecondSlider.forEach(function (item) {
+        item.classList.add('animated');
     });
-    secondSlider[secondSliderTurn - 1].style.display = "block";
-    secondSlider[secondSliderTurn - 1].classList.add("slideInRight"); 
-    
-} 
 
-function viewSlides(n) {
-    showSecondSlides(secondSliderTurn += n);
-}
+    let showSecondSlider = function showSecondSlider(n) {
+        if (n > SecondSlider.length) {
+            SecondSliderTurn = 1;
+        }
 
-prev.addEventListener("click", () => {
-    viewSlides(-1); //слайд назад
+        if (n < 1) {
+            SecondSliderTurn = SecondSlider.length;
+        }
 
-    clearInterval(timerSwap);
-    clearInterval(timer);
-    timerFunc();
-});
-next.addEventListener("click", () => {
-    viewSlides(+1); //слайд вперед
+        SecondSlider.forEach(function (item) {
+            return item.style.display = 'none';
+        });
+        SecondSlider[SecondSliderTurn - 1].style.display = 'block';
+        SecondSlider.forEach(function (item) {
+            item.classList.remove('slideInLeft');
+            item.classList.add('slideInRight');
+        });
+    };
 
-    clearInterval(timerSwap);
-    clearInterval(timer);
-    timerFunc();
-});
-}
+    showSecondSlider(SecondSliderTurn);
+
+    let plusSecondSlider = function plusSecondSlider(n) {
+        showSecondSlider(SecondSliderTurn += n);
+    };
+
+    prev.addEventListener('click', function () {
+        plusSecondSlider(-1);
+        SecondSlider[SecondSliderTurn - 1].classList.remove('slideInRight');
+        SecondSlider[SecondSliderTurn - 1].classList.add('slideInLeft');
+    });
+    next.addEventListener('click', function () {
+        plusSecondSlider(1);
+    });
+    setInterval(plusSecondSlider, 6000, 1);
+};
+
 module.exports = feedbackSlider;
 
 /***/ }),
@@ -507,6 +484,160 @@ function gift() {
 }
 
 module.exports = gift;
+
+/***/ }),
+
+/***/ "./src/js/parts/form.js":
+/*!******************************!*\
+  !*** ./src/js/parts/form.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+function form() {
+    function sendForm(e) {
+        let form = e,
+            statusMessage = document.createElement('div'),
+            input = form.querySelectorAll('input'),
+            textarea = form.querySelectorAll('textarea');
+        statusMessage.classList.add('status-message');
+        form.addEventListener('submit', (event) => {
+            let innerCode;
+            event.preventDefault();
+            let tel = form.querySelector('input[name=phone]');
+
+            function postData() {
+                return new Promise((resolve, reject) => {
+                    let request = new XMLHttpRequest(); 
+                    request.open('POST', 'server.php');
+                    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                    let formData = new FormData(form);
+                    request.send(formData); 
+                    innerCode = form.innerHTML;
+                    form.innerHTML = '';
+                    form.appendChild(statusMessage);
+                    request.addEventListener('readystatechange', () => {
+                        if (request.readyState < 4) {
+                            resolve();
+                        } else if (request.readyState == 4 && request.status == 200) {
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    });
+                });
+            }
+
+            function clearInput() {
+                for (let i = 0; i < input.length; i++) {
+                    input[i].value = '';
+                }
+                for (let _i = 0; _i < textarea.length; _i++) {
+                    textarea[_i].value = '';
+                }
+            }
+
+            function closeForm(status) {
+                statusMessage.innerHTML = status;
+                let timeLog = 0;
+                let closeFormTimer = setInterval(() => {
+                    timeLog = timeLog + 20;
+                    if (timeLog == 2000) {
+                        form.innerHTML = innerCode;
+                        clearInput();
+                        if (form.className.indexOf('popup') != -1) {
+                            let popupClass = document.querySelector('.' + form.className.slice(0, -5));
+                            popupClass.style.display = 'none';
+                            document.querySelector('body').style.overflow = '';
+                        }
+                        clearInterval(closeFormTimer);
+                    }
+                }, 20);
+            }
+
+            if (tel.value.length != 17) {
+                tel.style.border = '1px solid red';
+            } else {
+                tel.style.border = '';
+                postData().then(() => {
+                    closeForm('<p>Идет отправка</p>');
+                }).then(() => {
+                    closeForm('<p>Спасибо! Мы с Вами свяжемся</p>');
+                }).catch(() => {
+                    closeForm('<p>Произошла ошибка</p>');
+                });
+            }
+        });
+    }
+
+    let form = document.querySelectorAll('form');
+    form.forEach((e) => {
+        if (!e.classList.contains('form-calc')) {
+            sendForm(e);
+        }
+    });
+}
+
+module.exports = form;
+
+/***/ }),
+
+/***/ "./src/js/parts/mask.js":
+/*!******************************!*\
+  !*** ./src/js/parts/mask.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function mask() {
+    let inpMask = document.querySelectorAll('input'),
+        textAreaMask = document.querySelector('textarea');
+    textAreaMask.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^А-Яа-яЁё]/ig, '');
+    });
+    inpMask.forEach( (e) => {
+        if (e.getAttribute('name') == 'name' || e.getAttribute('name') == 'message') {
+            e.addEventListener('input', () => {
+                e.value = e.value.replace(/[^А-Яа-яЁё,.\-:"()!?/%*]/ig, '');
+            });
+        }
+
+        if (e.getAttribute('name') == 'phone') {
+            let input = e,
+                goLength;
+            input.addEventListener('input', (e) => {
+                input.value = input.value.replace('+7 (', '');
+                input.value = input.value.replace(') ', '');
+                input.value = input.value.replace(')', '');
+                input.value = input.value.replace('-', '');
+                let inpSlice = input.value.slice(-1);
+                let inpSliceNum = +inpSlice;
+
+                if (isNaN(inpSliceNum) || inpSlice.charCodeAt(0) === 32) {
+                    input.value = input.value.slice(0, input.value.length - 1);
+                } else if (e.data == null && goLength == 3) {
+                    input.value = input.value.slice(0, input.value.length - 1);
+                }
+
+                goLength = input.value.length;
+
+                if (input.value.length < 3) {
+                    input.value = "+7 (".concat(input.value.slice(0, 3), ")");
+                    input.setSelectionRange(input.value.length - 1, input.value.length - 1);
+                } else if (input.value.length == 3) {
+                    input.value = "+7 (".concat(input.value.slice(0, 3), ")");
+                } else if (input.value.length > 3 && input.value.length < 7) {
+                    input.value = "+7 (".concat(input.value.slice(0, 3), ") ").concat(input.value.slice(3, 6));
+                } else if (input.value.length > 6) {
+                    input.value = "+7 (".concat(input.value.slice(0, 3), ") ").concat(input.value.slice(3, 6), "-").concat(input.value.slice(6, 10));
+                }
+            });
+        }
+    });
+}
+
+module.exports = mask;
 
 /***/ }),
 
