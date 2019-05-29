@@ -34,7 +34,7 @@ let feedbackSlider = function feedbackSlider() {
 
     prev.addEventListener('click', function () {
         plusSecondSlider(-1);
-        SecondSlider[SecondSliderTurn - 1].classList.remove('slideInRight');
+        SecondSlider[SecondSliderTurn - 1].classList.remove('slideInLeft');
         SecondSlider[SecondSliderTurn - 1].classList.add('slideInLeft');
     });
     next.addEventListener('click', function () {

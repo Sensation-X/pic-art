@@ -1,37 +1,27 @@
 function accordion() {
-    let accordionBlock = document.querySelectorAll(".accordion-block"),
-    accordionHeading = document.querySelectorAll(".heading"),
-    accordionWrapper = document.querySelector('.often-questions');
-    
-    function hideBlockContent() {
-    for (var i = 0; i < accordionBlock.length; i++) {
-        accordionBlock[i].classList.remove("show", "slideInDown");
-        accordionBlock[i].classList.add("hide");
-        accordionHeading[i].classList.remove("active");
-    }
-    }
-    
-    hideBlockContent();
-    
-    function showBlockContent(b) {
-    if (accordionBlock[b].classList.contains("hide")) {
-        accordionBlock[b].classList.remove("hide");
-        accordionBlock[b].classList.add("show", "slideInDown");
-        accordionHeading[b].classList.add("active");
-    }
-    }
-    
-    accordionWrapper.addEventListener("click",  (event) => {
-    let target = event.target;
-    
-    if (target && target.classList.contains("heading")) {
-        for (var i = 0; i < accordionBlock.length; i++) {
-            if (target == accordionHeading[i]) {
-                hideBlockContent();
-                showBlockContent(i);
+    let accordionHeadings = document.querySelectorAll('.accordion-heading'),
+        accordionBlocks = document.querySelectorAll('.accordion-block');
+
+    accordionBlocks.forEach((item) => {
+        item.style.display = 'none';
+        item.classList.add('animated');
+        item.classList.add('slideInDown');
+    });
+
+    let activePanel;
+    accordionHeadings.forEach((item, i, accordionHeadings) => {
+        item.addEventListener('click', function (e) {
+            this.classList.add('ui-accordion-header-active');
+            this.nextElementSibling.classList.add('ui-accordion-content-active');
+            this.nextElementSibling.style.display = 'block';
+
+            if (activePanel) {
+                activePanel.classList.remove('ui-accordion-header-active');
+                activePanel.nextElementSibling.classList.remove('ui-accordion-content-active');
+                activePanel.nextElementSibling.style.display = 'none';
             }
-        }
-    }
+            activePanel = (activePanel === this) ? 0 : this;
+        });
     });
 }
 
